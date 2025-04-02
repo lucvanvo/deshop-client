@@ -54,7 +54,7 @@ function RenderInput() {
             </div>
 
             <Button text="Đăng Ký" type="submit" />
-            <SwitchAuth a="Bạn đã có tài khoản?" b="Đăng nhập ngay!" />
+            <SwitchAuth a="Bạn đã có tài khoản?" b="Đăng nhập ngay!" link="http://localhost:3000" />
         </form>
     );
 }

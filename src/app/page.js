@@ -1,6 +1,7 @@
 "use client"
 import Button from "@/component/Button";
 import InputField from "@/component/InputField";
+import SwitchAuth from "@/component/SwithAuth";
 import { useState } from "react";
 
 export default function Home() {
@@ -47,6 +48,7 @@ function RenderInput() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <Button text="Đăng Nhập" type="submit" />
+      <SwitchAuth a="Bạn chưa có tài khoản? " b="Đăng ký ngay!" link="http://localhost:3000/register" />
     </form>
   )
 }
