@@ -1,15 +1,12 @@
-"use client"
 
-import HeaderSearch from "@/component/HeaderSearch"
 import TopProducts from "@/component/TopProducts"
 
 export default function ShoppingPage() {
     return (
-        <div>
-            <HeaderSearch />
-            <Headerr />
+        <>
             <TopProducts />
-        </div>
+            <Headerr />
+        </>
     )
 }
 
