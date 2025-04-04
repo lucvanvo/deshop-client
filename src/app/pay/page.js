@@ -4,7 +4,7 @@ import Address from "@/component/Address"
 import HeaderCart from "@/component/HeaderCart"
 import ProductInCart from "@/component/ProductInCart"
 import TotalPay from "@/component/TotalPay"
-export default function Home() {
+export default function PaymentPage() {
     return (
         <div className="flex flex-col items-center bg-[#f9f9f9] h-full py-6">
             <HeaderCart step="Thanh toán" />

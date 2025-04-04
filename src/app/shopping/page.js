@@ -1,11 +1,9 @@
 "use client"
 
 import HeaderSearch from "@/component/HeaderSearch"
-import Header from "@/component/HeaderUI"
-import ProductTable from "@/component/ProductTable"
 import TopProducts from "@/component/TopProducts"
 
-export default function Shopping_UI() {
+export default function ShoppingPage() {
     return (
         <div>
             <HeaderSearch />

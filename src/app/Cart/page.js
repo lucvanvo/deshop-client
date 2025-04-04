@@ -3,7 +3,7 @@
 import HeaderCart from "@/component/HeaderCart"
 import ProductInCart from "@/component/ProductInCart"
 
-export default function Home() {
+export default function CartPage() {
     return (
         <div className="flex flex-col items-center bg-[#f9f9f9] min-h-screen py-6">
             <HeaderCart step="Giỏ hàng" />

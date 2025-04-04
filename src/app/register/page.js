@@ -3,7 +3,7 @@ import Button from "@/component/Button";
 import InputField from "@/component/InputField";
 import SwitchAuth from "@/component/SwithAuth";
 import { useState } from "react";
-export default function Register() {
+export default function RegisterPage() {
     return (
         <div className="flex min-h-screen bg-gradient-to-l from-[#FF5758] to-white">
             {/* Nửa bên trái */}

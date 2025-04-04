@@ -3,7 +3,7 @@
 import HeaderSearch from "@/component/HeaderSearch"
 import ProductSearch from "@/component/ProductSearch"
 
-export default function Home() {
+export default function SearchPage() {
     return (
         <div className="bg-[#FFF7EB] min-h-screen">
             <HeaderSearch />
