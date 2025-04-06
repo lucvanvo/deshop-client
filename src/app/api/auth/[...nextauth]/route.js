@@ -34,5 +34,4 @@ const handler = NextAuth({
     },
 });
 
-// ✅ Cần export đúng method GET & POST
 export { handler as GET, handler as POST };

@@ -7,8 +7,6 @@ export default function ShoppingLayout({ children }) {
     </div>
 }
 
-
-
 const Headerr = () => {
     return (
         <div className="bg-[#FFF7EB]">

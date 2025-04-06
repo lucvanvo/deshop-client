@@ -27,6 +27,7 @@ export default function CartPage() {
                     price="465.000 vnd"
                     quantity={1} />
             </div>
+
         </div>
     )
 }

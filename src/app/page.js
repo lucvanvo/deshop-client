@@ -1,5 +1,4 @@
 "use client"
-
 import FooterUI from "@/component/FooterUI"
 import Header from "@/component/HeaderUI"
 import PetCarServices from "@/component/PetCareServices"
@@ -16,6 +15,7 @@ export default function Home() {
             <PetCarServices />
             <PromoBanner />
             <FooterUI />
+
         </div>
     )
 }
