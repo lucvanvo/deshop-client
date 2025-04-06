@@ -3,8 +3,7 @@ import Button from "@/component/Button";
 import InputField from "@/component/InputField";
 import SwitchAuth from "@/component/SwithAuth";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react"
 
 export default function LoginPage() {
   return (
@@ -23,32 +22,20 @@ function RenderInput() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const router = useRouter();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const res = await signIn("credentials", {
-      redirect: false, // không redirect ngay, để bạn xử lý logic
-      username,
-      password,
-    });
-
-    if (res.ok) {
-      router.push("/"); // hoặc chuyển đến trang dashboard
-    } else {
-      alert("Sai tài khoản hoặc mật khẩu!");
-    }
-  };
+  const credentialsAction = () => {
+    signIn("credentials", { username, password, redirectTo: "/" });
+  }
   return (
     <form
-      onSubmit={handleSubmit}
+      action={credentialsAction}
       className="bg-white p-6 rounded-lg w-[400px] h-[500px] space-y-4 text-center"
     >
       <h2 className="text-[36px] font-bold text-center text-black">Đăng Nhập</h2>
       <InputField
         label="Tài khoản"
-        type="text"
+        type="email"
+        name="username"
+        placeholder="Nhập tài khoản"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
@@ -56,6 +43,7 @@ function RenderInput() {
         label="Mật khẩu"
         type="password"
         value={password}
+        name="password"
         onChange={(e) => setPassword(e.target.value)}
       />
       <Button text="Đăng Nhập" type="submit" />
