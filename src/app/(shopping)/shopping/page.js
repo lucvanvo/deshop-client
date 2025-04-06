@@ -4,8 +4,8 @@ import TopProducts from "@/component/TopProducts"
 export default function ShoppingPage() {
     return (
         <>
-            <TopProducts />
             <Headerr />
+            <TopProducts />
         </>
     )
 }

@@ -3,16 +3,15 @@ import Button from "@/component/Button";
 import InputField from "@/component/InputField";
 import SwitchAuth from "@/component/SwithAuth";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   return (
     <div className="flex min-h-screen bg-gradient-to-l from-[#FF5758] to-white">
-      {/* Nửa bên trái */}
       <div className="w-1/2 flex items-center justify-center">
         <img src="/image/logo.png" alt="Logo" className="w-[300px] h-auto" />
       </div>
-
-      {/* Nửa bên phải */}
       <div className="w-1/2 flex items-center justify-center">
         <RenderInput />
       </div>
@@ -24,10 +23,22 @@ function RenderInput() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Ngăn trang web load lại khi submit
-    console.log("Tài khoản:", username);
-    console.log("Mật khẩu:", password);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await signIn("credentials", {
+      redirect: false, // không redirect ngay, để bạn xử lý logic
+      username,
+      password,
+    });
+
+    if (res.ok) {
+      router.push("/"); // hoặc chuyển đến trang dashboard
+    } else {
+      alert("Sai tài khoản hoặc mật khẩu!");
+    }
   };
   return (
     <form

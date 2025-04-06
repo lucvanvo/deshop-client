@@ -8,7 +8,7 @@ export default function Header() {
                 </div>
                 <nav className="flex gap-16 text-[36px] font-bold text-[#DF564A]">
                     <a href="/" className="hover:text-red-500">Trang chủ</a>
-                    <a href="/shop" className="hover:text-red-500">Mua sắm</a>
+                    <a href="/shopping" className="hover:text-red-500">Mua sắm</a>
                 </nav>
             </div>
         </header>
