@@ -11,7 +11,7 @@ export default function MenuAdmin() {
     const getButtonClass = (path) => {
         const isActive = pathname === path;
         return `
-            w-1/5 h-full text-lg font-semibold text-white 
+            w-1/5 h-full p-[13px] text-lg font-semibold text-white 
             ${isActive ? 'bg-[#000000]' : 'bg-[#DF564A]'} 
             hover:opacity-80 transition
         `;
@@ -25,7 +25,7 @@ export default function MenuAdmin() {
 
     return (
         <>
-            <div className="w-full h-[45px] bg-gray-300 flex items-center justify-center text-center">
+            <div className="w-full h-auto bg-gray-300 flex items-center justify-center text-center">
                 <Link href="/admin/product" className={getButtonClass('/admin/product')}>
                     Quản Lý Sản Phẩm
                 </Link>
@@ -55,7 +55,7 @@ export default function MenuAdmin() {
 function ConfirmLogoutPopup({ onConfirm, onCancel }) {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+            <div className="absolute inset-0 backdrop-blur-sm bg-white/10"></div>
 
             <div className="relative z-50 bg-white w-[320px] p-6 rounded-xl shadow-xl text-center space-y-4 animate-fade-in">
                 <h2 className="text-xl font-bold text-red-600">Bạn có chắc chắn muốn đăng xuất không?</h2>
