@@ -2,6 +2,7 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function MenuAdmin() {
     const router = useRouter();
@@ -24,19 +25,19 @@ export default function MenuAdmin() {
 
     return (
         <>
-            <div className="w-full h-[45px] bg-gray-300 flex items-center justify-around">
-                <button onClick={() => router.push('/admin/product')} className={getButtonClass('/admin/product')}>
+            <div className="w-full h-[45px] bg-gray-300 flex items-center justify-center text-center">
+                <Link href="/admin/product" className={getButtonClass('/admin/product')}>
                     Quản Lý Sản Phẩm
-                </button>
-                <button onClick={() => router.push('/admin/category')} className={getButtonClass('/admin/category')}>
+                </Link>
+                <Link href="/admin/category" className={getButtonClass('/admin/category')}>
                     Quản Lý Loại Sản Phẩm
-                </button>
-                <button onClick={() => router.push('/admin/order')} className={getButtonClass('/admin/order')}>
+                </Link>
+                <Link href="/admin/order" className={getButtonClass('/admin/order')}>
                     Quản Lý Hóa Đơn
-                </button>
-                <button onClick={() => router.push('/admin/customer')} className={getButtonClass('/admin/customer')}>
+                </Link>
+                <Link href="/admin/customer" className={getButtonClass('/admin/customer')}>
                     Quản Lý Khách Hàng
-                </button>
+                </Link>
                 <button onClick={() => setShowLogoutPopup(true)} className={getButtonClass('/admin/logout')}>
                     Đăng Xuất
                 </button>
