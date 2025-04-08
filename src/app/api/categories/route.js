@@ -15,11 +15,14 @@ export const GET = auth(async (req) => {
                 Authorization: `Bearer ${req.auth.user.accessToken}`,
             },
         });
-
         if (!response.ok) {
             return NextResponse.json({ error: 'Failed to fetch categories' }, { status: response.status });
         }
 
+        // Check if the response is empty (204 No Content)
+        if (response.status === 204) {
+            return NextResponse.json([]); // Return an empty array if no content
+        }
         // Assuming the API returns a JSON response with a list of categories
         const categories = await response.json();
         // Check if the response contains the expected data structure
