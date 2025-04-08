@@ -1,3 +1,4 @@
+import AddButton from "@/component/AddButton"
 import CustomerTable from "@/component/CustomerTable"
 import { title } from "process"
 
@@ -8,6 +9,7 @@ export const metadata = {
 export default function CustomerPage() {
     return (
         <>
+            <AddButton nameFunc="Thêm khách hàng" />
             <CustomerTable />
         </>
     )

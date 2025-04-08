@@ -11,7 +11,7 @@ export default function MenuAdmin() {
     const getButtonClass = (path) => {
         const isActive = pathname === path;
         return `
-            w-1/5 h-full p-[13px] text-lg font-semibold text-white 
+            w-1/5 h-aotu p-[13px] text-lg font-semibold text-white 
             ${isActive ? 'bg-[#000000]' : 'bg-[#DF564A]'} 
             hover:opacity-80 transition
         `;
@@ -25,7 +25,7 @@ export default function MenuAdmin() {
 
     return (
         <>
-            <div className="w-full h-auto bg-gray-300 flex items-center justify-center text-center">
+            <div className="w-full h-aotu bg-gray-300 flex items-center justify-center text-center">
                 <Link href="/admin/product" className={getButtonClass('/admin/product')}>
                     Quản Lý Sản Phẩm
                 </Link>
