@@ -1,27 +1,19 @@
 "use client";
 
-export default function CategoryRow({ data, refresh }) {
-    const handleEdit = () => {
-        console.log(`Sửa loại sản phẩm: ${data.name}`);
-        // Logic sửa loại sản phẩm
-    };
-
-    const handleDelete = async () => {
-    };
-
+export default function CategoryRow({ data, onEdit, onDelete }) {
     return (
-        <tr className=" transition-all text-white">
-            <td className="p-3 border">{data?.name}</td>
-            <td className="p-3 border flex gap-4">
+        <tr>
+            <td className="p-3">{data.name}</td>
+            <td className="p-3 flex gap-2">
                 <button
-                    onClick={handleEdit}
-                    className="bg-yellow-400 px-4 py-1 rounded"
+                    onClick={onEdit}
+                    className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
                 >
                     Sửa
                 </button>
                 <button
-                    onClick={handleDelete}
-                    className="bg-red-500 text-white px-4 py-1 rounded"
+                    onClick={onDelete}
+                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
                 >
                     Xóa
                 </button>
