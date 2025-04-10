@@ -62,7 +62,7 @@ function RenderInput() {
         name="password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button text="Đăng Nhập" type="submit" />
+      <Button text="Đăng Nhập" type="submit" className="w-[350px] h-auto p-2 bg-red-400" />
       <SwitchAuth a="Bạn chưa có tài khoản? " b="Đăng ký ngay!" link="http://localhost:3000/register" />
     </form>
   )

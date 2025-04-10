@@ -45,25 +45,29 @@ const CategoryTable = forwardRef(({ onEdit, onDelete }, ref) => {
     }
 
     return (
-        <div className="overflow-x-auto p-4">
-            <table className="w-full border-collapse border text-left">
-                <thead className="bg-red-300 text-white">
-                    <tr>
-                        <th className="p-3">Tên loại sản phẩm</th>
-                        <th className="p-3">Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {categories.map((category) => (
-                        <CategoryRow
-                            key={category.id}
-                            data={category}
-                            onEdit={() => onEdit(category)}
-                            onDelete={() => onDelete(category.id)}
-                        />
-                    ))}
-                </tbody>
-            </table>
+        <div className="flex items-center justify-center"> {/* Sử dụng flexbox để căn giữa */}
+            <div className="overflow-x-auto p-2">
+                <table className="w-auto h-auto border-collapse border text-left text-sm">
+                    <thead className="bg-red-300 text-white">
+                        <tr>
+                            <th className="p-2">STT</th>
+                            <th className="p-2">Tên loại sản phẩm</th>
+                            <th className="p-2">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {categories.map((category, index) => (
+                            <CategoryRow
+                                key={category.id}
+                                stt={index + 1}
+                                data={category}
+                                onEdit={() => onEdit(category)}
+                                onDelete={() => onDelete(category.id)}
+                            />
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 });

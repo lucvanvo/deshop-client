@@ -1,7 +1,9 @@
 'use client'
-import AddButton from "@/component/AddButton";
+import Button from "@/component/Button";
 import CategoryTable from "@/component/CategoryTable";
 import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import ConfirmPopup from "@/component/ConfirmPopup";
 
 export default function CategoryPage() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -9,7 +11,10 @@ export default function CategoryPage() {
     const [editingCategory, setEditingCategory] = useState(null); // Lưu loại sản phẩm đang sửa
     const [newCategoryName, setNewCategoryName] = useState(""); // State để lưu tên loại sản phẩm mới
     const tableRef = useRef(null); // Tạo ref để gọi hàm refresh từ CategoryTable
-
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false); // State để điều khiển popup
+    const [successMessage, setSuccessMessage] = useState(""); // State để lưu nội dung thông báo
+    const [showConfirmPopup, setShowConfirmPopup] = useState(false); // State để điều khiển popup xác nhận
+    const [categoryToDelete, setCategoryToDelete] = useState(null); // State để lưu loại sản phẩm cần xóa
     const togglePopup = () => {
         setIsPopupOpen(!isPopupOpen);
     };
@@ -41,11 +46,16 @@ export default function CategoryPage() {
                 );
             }
 
-            alert(`${isEditMode ? "Sửa" : "Thêm"} loại sản phẩm thành công!`);
             setNewCategoryName(""); // Reset input
             setIsPopupOpen(false); // Đóng popup
             setIsEditMode(false); // Thoát chế độ sửa
             setEditingCategory(null);
+
+            //Hiển thị popup thành công
+            setSuccessMessage(isEditMode ? "Sửa loại sản phẩm thành công!" : "Thêm loại sản phẩm thành công!");
+            setShowSuccessPopup(true);
+            setTimeout(() => setShowSuccessPopup(false), 2000); // Ẩn popup sau 3 giây
+
 
             // Gọi hàm refresh từ CategoryTable để cập nhật danh sách
             if (tableRef.current) {
@@ -65,13 +75,14 @@ export default function CategoryPage() {
     };
 
     const handleDeleteCategory = async (categoryId) => {
-        if (!window.confirm("Bạn có chắc chắn muốn xóa loại sản phẩm này?")) {
-            return;
-        }
+        setCategoryToDelete(categoryId); // Lưu loại sản phẩm cần xóa
+        setShowConfirmPopup(true); // Hiển thị popup xác nhận
+    };
 
+    const confirmDeleteCategory = async () => {
         try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_PROXY_CATEGORY_API_URL}/${categoryId}`,
+                `${process.env.NEXT_PUBLIC_PROXY_CATEGORY_API_URL}/${categoryToDelete}`, // Sử dụng categoryToDelete
                 {
                     method: "DELETE",
                 }
@@ -81,7 +92,10 @@ export default function CategoryPage() {
                 throw new Error("Lỗi khi xóa loại sản phẩm.");
             }
 
-            alert("Xóa loại sản phẩm thành công!");
+            // Hiển thị thông báo thành công
+            setSuccessMessage("Xóa loại sản phẩm thành công!");
+            setShowSuccessPopup(true);
+            setTimeout(() => setShowSuccessPopup(false), 2000); // Ẩn popup sau 3 giây
 
             // Gọi hàm refresh từ CategoryTable để cập nhật danh sách
             if (tableRef.current) {
@@ -90,12 +104,15 @@ export default function CategoryPage() {
         } catch (error) {
             console.error("Lỗi:", error);
             alert("Đã xảy ra lỗi khi xóa loại sản phẩm.");
+        } finally {
+            setShowConfirmPopup(false); // Ẩn popup xác nhận
+            setCategoryToDelete(null); // Reset loại sản phẩm cần xóa
         }
     };
 
     return (
         <>
-            <AddButton nameFunc="Thêm loại sản phẩm" onClick={togglePopup} />
+            <Button text="Thêm loại sản phẩm" onClick={togglePopup} className="w-auto h-auto p-2 m-1 bg-[#69d6fa]" />
             <CategoryTable
                 ref={tableRef}
                 onEdit={handleEditCategory}
@@ -115,6 +132,42 @@ export default function CategoryPage() {
                     isEditMode={isEditMode}
                 />
             )}
+            {showConfirmPopup && (
+                <ConfirmPopup
+                    message="Bạn có chắc chắn muốn xóa loại sản phẩm này không?"
+                    onConfirm={confirmDeleteCategory}
+                    onCancel={() => setShowConfirmPopup(false)}
+                />
+            )}
+            {
+                <AnimatePresence>
+                    {showSuccessPopup && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.3 }}
+                            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-4"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 text-white"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                strokeWidth={2}
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M5 13l4 4L19 7"
+                                />
+                            </svg>
+                            <span>{successMessage}</span>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            }
         </>
     );
 }

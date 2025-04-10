@@ -1,22 +1,22 @@
 "use client";
 
-export default function CategoryRow({ data, onEdit, onDelete }) {
+import Button from "@/component/Button"; // Import Button component
+export default function CategoryRow({ stt, data, onEdit, onDelete }) {
     return (
         <tr>
-            <td className="p-3">{data.name}</td>
-            <td className="p-3 flex gap-2">
-                <button
+            <td className="p-2 text-center">{stt}</td>
+            <td className="p-2">{data.name}</td>
+            <td className="p-2 flex gap-2">
+                <Button
+                    text="Sửa"
                     onClick={onEdit}
-                    className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
-                >
-                    Sửa
-                </button>
-                <button
+                    className="w-[80px] h-[30px] text-[14px] bg-yellow-300" // Điều chỉnh kích cỡ nút
+                />
+                <Button
+                    text="Xóa"
                     onClick={onDelete}
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                >
-                    Xóa
-                </button>
+                    className="w-[80px] h-[30px] text-[14px] bg-red-600" // Điều chỉnh kích cỡ nút
+                />
             </td>
         </tr>
     );
