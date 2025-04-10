@@ -1,19 +1,17 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, forwardRef, useImperativeHandle } from "react";
 import CategoryRow from "@/component/CategoryRow";
 
-export default function CategoryTable() {
+const CategoryTable = forwardRef(({ onEdit, onDelete }, ref) => {
     const [categories, setCategories] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Hàm gọi API để lấy dữ liệu
     const fetchCategories = useCallback(async () => {
-        setIsLoading(true); // Bắt đầu tải
+        setIsLoading(true);
         try {
             const response = await fetch(process.env.NEXT_PUBLIC_PROXY_CATEGORY_API_URL);
-            console.log(response);
             if (!response.ok) {
                 throw new Error(`Lỗi API: ${response.statusText}`);
             }
@@ -24,11 +22,12 @@ export default function CategoryTable() {
             console.error("Lỗi khi gọi API:", error);
             setError(error.message);
         } finally {
-            setIsLoading(false); // Kết thúc tải
+            setIsLoading(false);
         }
     }, []);
 
-    // Gọi API ngay khi component được render
+    useImperativeHandle(ref, () => fetchCategories);
+
     useEffect(() => {
         fetchCategories();
     }, [fetchCategories]);
@@ -40,28 +39,37 @@ export default function CategoryTable() {
     if (error) {
         return <p className="text-center text-red-500">Đã xảy ra lỗi: {error}</p>;
     }
+
     if (categories.length === 0) {
         return <p className="text-center text-gray-500">Không có loại sản phẩm nào.</p>;
     }
+
     return (
-        <div className="overflow-x-auto p-4">
-            <table className="w-full border-collapse border text-left">
-                <thead className="bg-red-300 text-white">
-                    <tr>
-                        <th className="p-3 ">Tên loại sản phẩm</th>
-                        <th className="p-3 ">Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {categories.map((category) => (
-                        <CategoryRow
-                            key={category.id}
-                            data={category}
-                            refresh={fetchCategories} // Truyền hàm refresh xuống
-                        />
-                    ))}
-                </tbody>
-            </table>
+        <div className="flex items-center justify-center"> {/* Sử dụng flexbox để căn giữa */}
+            <div className="overflow-x-auto p-2">
+                <table className="w-auto h-auto border-collapse border text-left text-sm">
+                    <thead className="bg-red-300 text-white">
+                        <tr>
+                            <th className="p-2">STT</th>
+                            <th className="p-2">Tên loại sản phẩm</th>
+                            <th className="p-2">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {categories.map((category, index) => (
+                            <CategoryRow
+                                key={category.id}
+                                stt={index + 1}
+                                data={category}
+                                onEdit={() => onEdit(category)}
+                                onDelete={() => onDelete(category.id)}
+                            />
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
-}
+});
+
+export default CategoryTable;

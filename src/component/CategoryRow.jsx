@@ -1,30 +1,22 @@
 "use client";
 
-export default function CategoryRow({ data, refresh }) {
-    const handleEdit = () => {
-        console.log(`Sửa loại sản phẩm: ${data.name}`);
-        // Logic sửa loại sản phẩm
-    };
-
-    const handleDelete = async () => {
-    };
-
+import Button from "@/component/Button"; // Import Button component
+export default function CategoryRow({ stt, data, onEdit, onDelete }) {
     return (
-        <tr className=" transition-all text-white">
-            <td className="p-3 border">{data?.name}</td>
-            <td className="p-3 border flex gap-4">
-                <button
-                    onClick={handleEdit}
-                    className="bg-yellow-400 px-4 py-1 rounded"
-                >
-                    Sửa
-                </button>
-                <button
-                    onClick={handleDelete}
-                    className="bg-red-500 text-white px-4 py-1 rounded"
-                >
-                    Xóa
-                </button>
+        <tr>
+            <td className="p-2 text-center">{stt}</td>
+            <td className="p-2">{data.name}</td>
+            <td className="p-2 flex gap-2">
+                <Button
+                    text="Sửa"
+                    onClick={onEdit}
+                    className="w-[80px] h-[30px] text-[14px] bg-yellow-300" // Điều chỉnh kích cỡ nút
+                />
+                <Button
+                    text="Xóa"
+                    onClick={onDelete}
+                    className="w-[80px] h-[30px] text-[14px] bg-red-600" // Điều chỉnh kích cỡ nút
+                />
             </td>
         </tr>
     );

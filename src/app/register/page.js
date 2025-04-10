@@ -53,8 +53,8 @@ function RenderInput() {
                 <InputField label="Địa chỉ" type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
             </div>
 
-            <Button text="Đăng Ký" type="submit" />
-            <SwitchAuth a="Bạn đã có tài khoản?" b="Đăng nhập ngay!" link="http://localhost:3000" />
+            <Button text="Đăng Ký" type="submit" className="w-[350px] h-auto p-2 bg-red-400" />
+            <SwitchAuth a="Bạn đã có tài khoản?" b="Đăng nhập ngay!" link="http://localhost:3000/login" />
         </form>
     );
 }
