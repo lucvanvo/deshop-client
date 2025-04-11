@@ -1,17 +1,29 @@
 "use client"
-export default function ProductRow() {
+
+import Button from "./Button"
+
+export default function ProductRow({ stt, data, onEdit, onDelete }) {
     return (
         <tr>
-            <td>Catsrang 5kg</td>
-            <td>Thức ăn mèo xuất sứ Hàn Quốc</td>
-            <td>465.000 VND</td>
-            <td>Thức ăn</td>
-            <td>
-                <img src="image/catsrang5kg.jpg" alt="Catsrang 5kg" className="w-16 h-16" />
+            <td className="p-3 border text-center">{stt}</td>
+            <td className="p-3 border">{data.name}</td>
+            <td className="p-3 border">{data.description}</td>
+            <td className="p-3 border">{data.price} VND</td>
+            <td className="p-3 border">{data.category}</td>
+            <td className="p-3 border">
+                <img src={data.image} alt={data.name} className="w-auto h-auto object-cover" />
             </td>
-            <td className="p-2 flex gap-2">
-                <button className="bg-yellow-400 px-4 py-1 rounded">Sửa</button>
-                <button className="bg-red-500 text-white px-4 py-1 rounded">Xóa</button>
+            <td className="p-2 justify-center">
+                <Button
+                    text="Sửa"
+                    onClick={onEdit}
+                    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                />
+                <Button
+                    text="Xóa"
+                    onClick={onDelete}
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                />
             </td>
         </tr>
     )
