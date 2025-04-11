@@ -112,7 +112,7 @@ export default function CategoryPage() {
 
     return (
         <>
-            <Button text="Thêm loại sản phẩm" onClick={togglePopup} className="w-auto h-auto p-2 m-1 bg-[#69d6fa]" />
+            <Button text="Thêm loại sản phẩm" onClick={togglePopup} className="bg-blue-500 text-white px-4 py-2 mb-4 m-1 hover:bg-blue-600 rounded" />
             <CategoryTable
                 ref={tableRef}
                 onEdit={handleEditCategory}
