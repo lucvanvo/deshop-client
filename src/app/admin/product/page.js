@@ -58,7 +58,7 @@ export default function ProductPage() {
         <>
             <Button
                 text="Thêm sản phẩm"
-                className="bg-blue-500 text-white px-4 py-2 mb-4"
+                className="bg-blue-500 text-white px-4 py-2 mb-4 hover:bg-blue-600"
                 onClick={() => {
                     setEditingProduct(null);
                     setIsPopupOpen(true);

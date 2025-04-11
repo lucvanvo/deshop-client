@@ -20,36 +20,45 @@ export default function ProductTable({ products, onEdit, onDelete }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product, index) => (
-                        <tr key={product.id}>
-                            <td className="p-3 border text-center">{index + 1}</td>
-                            <td className="p-3 border">{product.name}</td>
-                            <td className="p-3 border">{product.description}</td>
-                            <td className="p-3 border">{product.price.toLocaleString()} VND</td>
-                            <td className="p-3 border">{product.categoryName}</td>
-                            <td className="p-3 border">
-                                <img
-                                    src={product.imageUrl}
-                                    alt={product.name}
-                                    className="w-16 h-16 object-cover"
-                                />
-                            </td>
-                            <td className="p-3 border text-center">
-                                <button
-                                    onClick={() => onEdit(product)}
-                                    className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-                                >
-                                    Sửa
-                                </button>
-                                <button
-                                    onClick={() => onDelete(product.id)}
-                                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-2"
-                                >
-                                    Xóa
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
+                    {products.map((product, index) => {
+                        // Sử dụng API để lấy hình ảnh
+                        const imageSrc = `/api/images/${encodeURIComponent(product.imageUrl.split("\\").pop())}`;
+
+                        return (
+                            <tr key={product.id}>
+                                <td className="p-3 border text-center">{index + 1}</td>
+                                <td className="p-3 border">{product.name}</td>
+                                <td className="p-3 border">{product.description}</td>
+                                <td className="p-3 border">{product.price.toLocaleString()} VND</td>
+                                <td className="p-3 border">{product.categoryName}</td>
+                                <td className="p-3 border">
+                                    {product.imageUrl ? (
+                                        <img
+                                            src={imageSrc}
+                                            alt={product.name}
+                                            className="w-16 h-16 object-cover"
+                                        />
+                                    ) : (
+                                        <span>Không có ảnh</span>
+                                    )}
+                                </td>
+                                <td className="p-3 border text-center">
+                                    <button
+                                        onClick={() => onEdit(product)}
+                                        className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                                    >
+                                        Sửa
+                                    </button>
+                                    <button
+                                        onClick={() => onDelete(product.id)}
+                                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-2"
+                                    >
+                                        Xóa
+                                    </button>
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </div>
