@@ -7,92 +7,89 @@ import AddProductPopup from "@/component/AddProductPopup";
 
 export default function ProductPage() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [editingProduct, setEditingProduct] = useState(null); // Sản phẩm đang được sửa
     const [products, setProducts] = useState([]);
+    const [editingProduct, setEditingProduct] = useState(null);
 
-    // Hàm gọi API để lấy danh sách sản phẩm
-    const fetchProducts = async () => {
+    // Load danh sách sản phẩm
+    const refreshProducts = async () => {
         try {
             const response = await fetch(process.env.NEXT_PUBLIC_PROXY_PRODUCT_API_URL);
             if (!response.ok) throw new Error("Không thể tải danh sách sản phẩm.");
             const data = await response.json();
             setProducts(data);
         } catch (error) {
-            console.error("Lỗi khi tải sản phẩm:", error.message);
+            console.error("Lỗi khi tải sản phẩm:", error);
         }
     };
 
     useEffect(() => {
-        fetchProducts();
+        refreshProducts();
     }, []);
 
-    // Hàm thêm sản phẩm
     const handleAddProduct = (newProduct) => {
-        setProducts((prevProducts) => [...prevProducts, newProduct]);
+        setProducts((prev) => [...prev, newProduct]);
     };
 
-    // Hàm sửa sản phẩm
-    const handleEditProduct = (updatedProduct) => {
-        setProducts((prevProducts) =>
-            prevProducts.map((product) =>
-                product.id === updatedProduct.id ? updatedProduct : product
-            )
-        );
+    const handleUpdateProduct = async () => {
+        alert("Sửa sản phẩm thành công!");
+        refreshProducts();
     };
 
-    // Hàm xóa sản phẩm
     const handleDeleteProduct = async (productId) => {
+        const confirmDelete = confirm("Bạn có chắc chắn muốn xóa sản phẩm?");
+        if (!confirmDelete) return;
+
         try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_PROXY_PRODUCT_API_URL}/${productId}`,
-                {
-                    method: "DELETE",
-                }
-            );
+            const response = await fetch(`${process.env.NEXT_PUBLIC_PROXY_PRODUCT_API_URL}/${productId}`, {
+                method: "DELETE",
+            });
 
-            if (!response.ok) {
-                throw new Error("Không thể xóa sản phẩm.");
-            }
+            if (!response.ok) throw new Error("Không thể xóa sản phẩm.");
 
-            setProducts((prevProducts) =>
-                prevProducts.filter((product) => product.id !== productId)
-            );
             alert("Xóa sản phẩm thành công!");
+            refreshProducts();
         } catch (error) {
-            console.error("Lỗi khi xóa sản phẩm:", error.message);
-            alert("Đã xảy ra lỗi khi xóa sản phẩm.");
+            console.error("Lỗi khi xóa sản phẩm:", error);
+            alert("Lỗi khi xóa sản phẩm.");
         }
-    };
-
-    // Hàm mở popup sửa sản phẩm
-    const handleOpenEditPopup = (product) => {
-        setEditingProduct(product);
-        setIsPopupOpen(true);
     };
 
     return (
         <>
             <Button
                 text="Thêm sản phẩm"
-                className="bg-blue-500 text-white px-4 py-2"
+                className="bg-blue-500 text-white px-4 py-2 mb-4"
                 onClick={() => {
-                    setEditingProduct(null); // Đặt về null để thêm sản phẩm mới
+                    setEditingProduct(null);
                     setIsPopupOpen(true);
                 }}
             />
 
             <ProductTable
                 products={products}
-                onEdit={handleOpenEditPopup}
-                onDelete={handleDeleteProduct}
+                onEdit={(product) => {
+                    setEditingProduct(product);
+                    setIsPopupOpen(true);
+                }}
+                onDelete={(productId) => {
+                    handleDeleteProduct(productId);
+                }}
             />
 
             {isPopupOpen && (
                 <AddProductPopup
-                    onAdd={handleAddProduct}
-                    onEdit={handleEditProduct}
-                    onClose={() => setIsPopupOpen(false)}
                     editingProduct={editingProduct}
+                    onAdd={(newProduct) => {
+                        handleAddProduct(newProduct);
+                        refreshProducts();
+                    }}
+                    onEdit={(updatedProduct) => {
+                        handleUpdateProduct(updatedProduct); // truyền sản phẩm đã cập nhật về
+                    }}
+                    onClose={() => {
+                        setIsPopupOpen(false);
+                        setEditingProduct(null);
+                    }}
                 />
             )}
         </>
