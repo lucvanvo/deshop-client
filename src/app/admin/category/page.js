@@ -199,18 +199,20 @@ function AddCategoryPopup({
                     />
                 </div>
                 <div className="flex justify-end gap-2">
-                    <button
+                    {/* <button
                         onClick={onAdd}
                         className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                     >
                         {isEditMode ? "Lưu thay đổi" : "Lưu"}
-                    </button>
-                    <button
+                    </button> */}
+                    <Button text={isEditMode ? "Lưu thay đổi" : "Lưu"} onClick={onAdd} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" />
+                    {/* <button
                         onClick={onClose}
                         className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400"
                     >
                         Đóng
-                    </button>
+                    </button> */}
+                    <Button text="Đóng" onClick={onClose} className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400" />
                 </div>
             </div>
         </div>
