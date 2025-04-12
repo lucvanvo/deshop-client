@@ -2,17 +2,11 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 
 export const GET = auth(async (req) => {
-    // Check if the user is authenticated and has the 'ADMIN' role
-    if (!req.auth || req.auth.user.role !== 'ADMIN') {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     try {
         const response = await fetch(process.env.BACKEND_CATEGORY_URL, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${req.auth.user.accessToken}`,
             },
         });
         if (!response.ok) {

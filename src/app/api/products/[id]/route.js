@@ -70,7 +70,7 @@ export const GET = auth(async (req, { params }) => {
         const response = await fetch(`${process.env.BACKEND_PRODUCT_URL}/${id}`, {
             method: 'GET',
             headers: {
-                Authorization: `Bearer ${req.auth.user.accessToken}`,
+                'Content-Type': 'application/json',
             },
         });
 
