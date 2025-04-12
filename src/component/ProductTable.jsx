@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "./Button";
+
 export default function ProductTable({ products, onEdit, onDelete }) {
     if (products.length === 0) {
         return <p className="text-center text-gray-500">Không có sản phẩm nào.</p>;
@@ -8,7 +10,7 @@ export default function ProductTable({ products, onEdit, onDelete }) {
     return (
         <div className="overflow-x-auto p-4">
             <table className="w-full border-collapse border text-left text-sm">
-                <thead className="bg-red-300 text-white">
+                <thead className="bg-red-500 text-white">
                     <tr>
                         <th className="p-3 border">STT</th>
                         <th className="p-3 border">Tên sản phẩm</th>

@@ -112,7 +112,7 @@ export default function CategoryPage() {
 
     return (
         <>
-            <Button text="Thêm loại sản phẩm" onClick={togglePopup} className="w-auto h-auto p-2 m-1 bg-[#69d6fa]" />
+            <Button text="Thêm loại sản phẩm" onClick={togglePopup} className="bg-blue-500 text-white px-4 py-2 mb-4 m-1 hover:bg-blue-600 rounded" />
             <CategoryTable
                 ref={tableRef}
                 onEdit={handleEditCategory}
@@ -199,18 +199,20 @@ function AddCategoryPopup({
                     />
                 </div>
                 <div className="flex justify-end gap-2">
-                    <button
+                    {/* <button
                         onClick={onAdd}
                         className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                     >
                         {isEditMode ? "Lưu thay đổi" : "Lưu"}
-                    </button>
-                    <button
+                    </button> */}
+                    <Button text={isEditMode ? "Lưu thay đổi" : "Lưu"} onClick={onAdd} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" />
+                    {/* <button
                         onClick={onClose}
                         className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400"
                     >
                         Đóng
-                    </button>
+                    </button> */}
+                    <Button text="Đóng" onClick={onClose} className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400" />
                 </div>
             </div>
         </div>

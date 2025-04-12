@@ -1,6 +1,7 @@
 "use client"
 
-import BuyNowButton from "./BuyNowButton";
+import Button from "./Button";
+
 
 export default function PromoBanner() {
     return (
@@ -11,7 +12,8 @@ export default function PromoBanner() {
                 <p className="text-[28px] mb-6">
                     Đừng bỏ lỡ ưu đãi trong thời gian giới hạn của chúng tôi và giảm giá độc quyền.
                 </p>
-                <BuyNowButton />
+                <Button text="Mua ngay"
+                    className="bg-red-500 text-white px-6 py-2 rounded-md text-[26px] w-[175px] h-[60px] font-bold hover:bg-red-600" />
             </div>
         </div>
     );
