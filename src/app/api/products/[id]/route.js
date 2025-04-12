@@ -38,6 +38,7 @@ export const PUT = auth(async (req, { params }) => {
     }
 
     const { id } = params;
+    const formData = await req.formData(); // Get the form data from the request
 
     try {
         const response = await fetch(`${process.env.BACKEND_PRODUCT_URL}/${id}`, {
@@ -45,7 +46,7 @@ export const PUT = auth(async (req, { params }) => {
             headers: {
                 Authorization: `Bearer ${req.auth.user.accessToken}`,
             },
-            body: req.formData
+            body: formData
         });
 
         if (!response.ok) {
