@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
 import SearchBar from "./SearchBar";
 
-export default function HeaderSearch() {
+export default function HeaderSearch({ onSearch }) {
     return (
         <header className="flex items-center justify-between p-4 bg-white border-b">
             <div className="flex flex-col items-center">
@@ -10,7 +10,8 @@ export default function HeaderSearch() {
             </div>
 
             <div className="">
-                <SearchBar />
+                {/* Truyền hàm onSearch vào SearchBar */}
+                <SearchBar onSearch={onSearch} />
             </div>
 
             <div className="flex items-center gap-4">
@@ -29,5 +30,5 @@ const AuthButton = ({ label, color }) => {
         <button className={`${color} text-white px-4 py-2 rounded-md font-bold hover:opacity-80 transition duration-300`}>
             {label}
         </button>
-    )
-}
+    );
+};
