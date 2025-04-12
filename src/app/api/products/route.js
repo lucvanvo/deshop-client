@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 
 
-
 export const POST = auth(async (req) => {
     // Check if the user is authenticated and has the 'ADMIN' role
     if (!req.auth || req.auth.user.role !== 'ADMIN') {
@@ -33,12 +32,18 @@ export const POST = auth(async (req) => {
 });
 
 export const GET = auth(async (req) => {
+    const searchParams = req.nextUrl.searchParams; // Get the search parameters from the request URL
+    const ids = searchParams.get('ids');
+    const url = new URL(process.env.BACKEND_PRODUCT_URL);
+    if (ids) {
+        url.searchParams.append('ids', ids);
+    };
+
     try {
-        const response = await fetch(process.env.BACKEND_PRODUCT_URL, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${req.auth.user.accessToken}`,
             },
         });
 
@@ -54,6 +59,7 @@ export const GET = auth(async (req) => {
         const data = await response.json();
         return NextResponse.json(data, { status: 200 });
     } catch (error) {
+        console.error('Error fetching products:', error);
         return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
     }
 });
