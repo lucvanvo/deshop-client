@@ -45,14 +45,14 @@ const CategoryTable = forwardRef(({ onEdit, onDelete }, ref) => {
     }
 
     return (
-        <div className="flex items-center justify-center"> {/* Sử dụng flexbox để căn giữa */}
-            <div className="overflow-x-auto p-2">
-                <table className="w-auto h-auto border-collapse border text-left text-sm">
-                    <thead className="bg-red-300 text-white">
+        <div className="flex justify-center p-4">
+            <div className="overflow-x-auto">
+                <table className="min-w-[600px] border-collapse text-left shadow-lg rounded-lg overflow-hidden">
+                    <thead className="bg-red-500 text-white">
                         <tr>
-                            <th className="p-2">STT</th>
-                            <th className="p-2">Tên loại sản phẩm</th>
-                            <th className="p-2">Hành động</th>
+                            <th className="p-4 border-b w-[60px] text-center">STT</th>
+                            <th className="p-4 border-b">Tên loại sản phẩm</th>
+                            <th className="p-4 border-b w-[180px] text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>

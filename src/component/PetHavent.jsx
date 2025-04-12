@@ -1,6 +1,6 @@
 "use client"
 
-import BuyNowButton from "./BuyNowButton"
+import Button from "./Button"
 
 export default function PetHavent() {
     return (
@@ -15,7 +15,8 @@ export default function PetHavent() {
                 <div className="bg-orange-100 px-4 py-2 rounded-md">
                     <p className="text-red-500 text-[32px] font-semibold">Đồ dùng cho thú cưng,<br /> được chọn lọc hoàn hảo</p>
                 </div>
-                <BuyNowButton />
+                <Button text="Mua ngay"
+                    className="bg-red-500 text-white px-6 py-2 rounded-md text-[26px] w-[175px] h-[60px] font-bold hover:bg-red-600" />
             </div>
         </div>
     )

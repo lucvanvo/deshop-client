@@ -1,7 +1,6 @@
 "use client"
 
-import BuyNowButton from "./BuyNowButton"
-
+import Button from "./Button"
 export default function TopProducts({ name, price, description }) {
     return (
         <div className="w-full h-[300px] bg-white shadow-lg flex items-center justify-center px-8">
@@ -12,7 +11,8 @@ export default function TopProducts({ name, price, description }) {
                 <p>Tên sản phẩm: {name}</p>
                 <p>Giá sản phẩm: {price}</p>
                 <p>Mô tả: {description}</p>
-                <BuyNowButton />
+                <Button text="Mua ngay"
+                    className="bg-red-500 text-white px-6 py-2 rounded-md text-[26px] w-[175px] h-[60px] font-bold hover:bg-red-600" />
             </div>
         </div>
     )

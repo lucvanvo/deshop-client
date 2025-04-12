@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Button from "./Button";
+import { type } from "os";
 
 export default function AddProductPopup({ onAdd, onEdit, onClose, editingProduct }) {
     const [form, setForm] = useState({
@@ -162,19 +164,8 @@ export default function AddProductPopup({ onAdd, onEdit, onClose, editingProduct
                     </div>
 
                     <div className="flex justify-end gap-2">
-                        <button
-                            type="button"
-                            onClick={onClose}
-                            className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400"
-                        >
-                            Hủy
-                        </button>
-                        <button
-                            type="submit"
-                            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                        >
-                            {editingProduct ? "Sửa" : "Thêm"}
-                        </button>
+                        <Button text="Hủy" onClick={onClose} className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400" />
+                        <Button text={editingProduct ? "Sửa" : "Thêm"} type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" />
                     </div>
                 </form>
             </div>
