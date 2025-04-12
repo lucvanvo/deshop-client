@@ -5,7 +5,7 @@ const BASE_DIR = "D:/images"; // Thư mục chứa hình ảnh
 
 export async function GET(req, { params }) {
     try {
-        const { filename } = params;
+        const { filename } = await params;
 
         if (!filename) {
             return new Response("Missing filename", { status: 400 });
