@@ -27,6 +27,10 @@ export const GET = auth(async (req) => {
             return NextResponse.json({ error: 'Failed to fetch orders' }, { status: response.status });
         }
 
+        if (response.status === 204) {
+            return NextResponse.json([]);
+        }
+
         const data = await response.json();
         return NextResponse.json(data, { status: response.status });
     } catch (error) {

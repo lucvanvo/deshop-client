@@ -23,7 +23,7 @@ export const DELETE = auth(async (req, { params }) => {
             return NextResponse.json({ error: 'Failed to delete order' }, { status: response.status });
         }
 
-        return NextResponse.json({ message: 'Order deleted successfully' }, { status: response.status });
+        return NextResponse.json({ message: 'Order deleted successfully' });
     } catch (error) {
         return NextResponse.json({ error: 'Failed to delete order' }, { status: 500 });
     }
