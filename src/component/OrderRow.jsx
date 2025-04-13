@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Button from "./Button";
+import Link from "next/link";
 
 export default function OrderRow({ name, phoneNumber, email, address, status: initialStatus, totalPrice, orderId, onDelete }) {
     const [status, setStatus] = useState(initialStatus); // Trạng thái đơn hàng
@@ -58,11 +59,8 @@ export default function OrderRow({ name, phoneNumber, email, address, status: in
             </td>
             <td className="p-4 border-b">{totalPrice ? `${totalPrice.toLocaleString()} vnd` : "Chưa cập nhật"}</td>
             <td className="p-4 border-b">
-                <Button
-                    text="Xem chi tiết"
-                    onClick={() => alert(`Xem chi tiết hóa đơn: ${orderId}`)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition"
-                />
+                {/* Chuyển hướng đến trang chi tiết đơn hàng khi nhấn vào nút "Xem chi tiết" */}
+                <Link href={`/order/${orderId}`} className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition">Xem chi tiết</Link>
             </td>
             <td className="p-4 border-b">
                 <Button

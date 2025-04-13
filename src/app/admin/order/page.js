@@ -5,5 +5,5 @@ export const metadata = {
 }
 
 export default function OrderPage() {
-    return (<OrderTable />)
+    return <OrderTable />
 }
