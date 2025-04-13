@@ -8,7 +8,7 @@ export const DELETE = auth(async (req, { params }) => {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     try {
         const response = await fetch(`${process.env.BACKEND_ORDER_URL}/${id}`, {
@@ -18,14 +18,16 @@ export const DELETE = auth(async (req, { params }) => {
                 Authorization: `Bearer ${req.auth.user.accessToken}`,
             },
         });
-
         if (!response.ok) {
             return NextResponse.json({ error: 'Failed to delete order' }, { status: response.status });
         }
 
-        return NextResponse.json({ message: 'Order deleted successfully' }, { status: response.status });
+        console.log(response.status);
+        return NextResponse.json({ message: 'Order deleted successfully' }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: 'Failed to delete order' }, { status: 500 });
     }
 
 });
+
+
