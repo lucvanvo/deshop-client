@@ -13,8 +13,8 @@ export default function OrderRow({ name, phoneNumber, email, address, status: in
         setLoading(true); // Hiển thị trạng thái loading
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_PROXY_ORDER_API_URL}/${orderId}`, {
-                method: "PUT",
+            const response = await fetch(`${process.env.NEXT_PUBLIC_PROXY_ORDER_API_URL}/${orderId}/status`, {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                 },
