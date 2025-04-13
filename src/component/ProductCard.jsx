@@ -11,6 +11,22 @@ export default function ProductCard({ product }) {
         : "/placeholder-image.png";
 
     const handleAddToCart = () => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const existingItem = cart.find((item) => item.id === product.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                imageUrl: product.imageUrl,
+                quantity: 1,
+            });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
         alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
     };
 
