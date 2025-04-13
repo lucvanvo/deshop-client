@@ -10,10 +10,17 @@ export default function HeaderSearch({ onSearch }) {
         router.push("/Cart"); // Điều hướng đến trang /Cart
     };
 
+    const handleLogoClick = () => {
+        router.push("/"); // Điều hướng đến trang chủ
+    }
+
     return (
         <header className="flex items-center justify-between p-4 bg-white border-b">
             <div className="flex flex-col items-center">
-                <img src="/image/logo.png" alt="Dẻ's Shop" className="w-[200px] h-[100px]" />
+                <img src="/image/logo.png"
+                    alt="Dẻ's Shop"
+                    className="w-[200px] h-[100px]"
+                    onClick={handleLogoClick} />
             </div>
 
             <div className="">
