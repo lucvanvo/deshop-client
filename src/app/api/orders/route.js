@@ -73,7 +73,7 @@ export const POST = auth(async (req) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${req.auth.user.accessToken}`, // Gửi token xác thực nếu cần
+                Authorization: `Bearer ${req?.auth?.user?.accessToken}`, // Gửi token xác thực nếu cần
             },
             body: JSON.stringify(orderData), // Gửi dữ liệu đơn hàng vào body của request
         });
