@@ -1,40 +1,53 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter để điều hướng
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import CartSummary from "@/component/CartSummary";
 import HeaderCart from "@/component/HeaderCart";
 import ProductInCart from "@/component/ProductInCart";
 
 export default function CartPage() {
-    const router = useRouter(); // Khởi tạo router để điều hướng
-    const [products, setProducts] = useState([
-        { id: 1, image: "image/catsrang5kg.jpg", name: "Catsrang 5kg", price: 465000, quantity: 1, isSelected: false },
-        { id: 2, image: "image/catsrang5kg.jpg", name: "Catsrang 5kg", price: 465000, quantity: 1, isSelected: false },
-        { id: 3, image: "image/catsrang5kg.jpg", name: "Catsrang 5kg", price: 465000, quantity: 1, isSelected: false },
-        { id: 4, image: "image/catsrang5kg.jpg", name: "Catsrang 5kg", price: 465000, quantity: 1, isSelected: false },
-    ]);
+    const router = useRouter();
+
+    const [products, setProducts] = useState([]);
+
+    // Load cart từ localStorage chỉ sau khi component được render (client-side)
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const cartData = localStorage.getItem("cart");
+            if (cartData) {
+                const parsed = JSON.parse(cartData).map(item => ({
+                    ...item,
+                    isSelected: item.isSelected ?? false,
+                }));
+                setProducts(parsed);
+            }
+        }
+    }, []);
 
     const handleSelectProduct = (id, isSelected) => {
-        setProducts((prevProducts) =>
-            prevProducts.map((product) =>
-                product.id === id ? { ...product, isSelected } : product
-            )
+        const updatedProducts = products.map((product) =>
+            product.id === id ? { ...product, isSelected } : product
         );
+        setProducts(updatedProducts);
+        localStorage.setItem("cart", JSON.stringify(updatedProducts));
     };
 
     const handleQuantityChange = (id, newQuantity) => {
-        setProducts((prevProducts) =>
-            prevProducts.map((product) =>
-                product.id === id ? { ...product, quantity: newQuantity } : product
-            )
+        const updatedProducts = products.map((product) =>
+            product.id === id ? { ...product, quantity: newQuantity } : product
         );
+        setProducts(updatedProducts);
+        localStorage.setItem("cart", JSON.stringify(updatedProducts));
     };
 
     const handleSelectAll = (isSelected) => {
-        setProducts((prevProducts) =>
-            prevProducts.map((product) => ({ ...product, isSelected }))
-        );
+        const updatedProducts = products.map((product) => ({
+            ...product,
+            isSelected,
+        }));
+        setProducts(updatedProducts);
+        localStorage.setItem("cart", JSON.stringify(updatedProducts));
     };
 
     const handleCheckout = () => {
@@ -44,10 +57,7 @@ export default function CartPage() {
             return;
         }
 
-        // Lưu sản phẩm đã chọn vào localStorage
         localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
-
-        // Chuyển hướng sang trang /pay
         router.push("/pay");
     };
 
@@ -59,7 +69,7 @@ export default function CartPage() {
         .filter((product) => product.isSelected)
         .reduce((sum, product) => sum + product.quantity, 0);
 
-    const isAllSelected = products.every((product) => product.isSelected);
+    const isAllSelected = products.length > 0 && products.every((product) => product.isSelected);
 
     return (
         <div className="flex flex-col items-center bg-[#f9f9f9] min-h-screen py-6">
@@ -67,7 +77,7 @@ export default function CartPage() {
             {products.map((product) => (
                 <div key={product.id} className="flex items-center text-black">
                     <ProductInCart
-                        image={product.image}
+                        image={`/api/images/${encodeURIComponent(product.imageUrl)}`} // sửa tại đây
                         name={product.name}
                         price={product.price}
                         initialQuantity={product.quantity}
