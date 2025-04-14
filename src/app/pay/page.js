@@ -20,6 +20,13 @@ export default function PayPage() {
     useEffect(() => {
         const products = JSON.parse(localStorage.getItem("selectedProducts")) || [];
         setSelectedProducts(products);
+
+        //Lấy thông tin người nhận từ localStorage
+        const savedOrderInfo = JSON.parse(localStorage.getItem("orderInfo"));
+        if (savedOrderInfo) {
+            setOrderInfo(savedOrderInfo);
+
+        }
     }, []);
 
     const totalPrice = selectedProducts.reduce((sum, p) => sum + p.price * p.quantity, 0);
@@ -35,6 +42,7 @@ export default function PayPage() {
             return;
         }
         setOrderInfo(form);
+        localStorage.setItem("orderInfo", JSON.stringify(form)); // Lưu thông tin vào localStorage
         setShowPopup(false);
     };
 
