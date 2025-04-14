@@ -3,6 +3,13 @@ import { NextResponse } from 'next/server';
 
 // API GET: Lấy danh sách đơn hàng
 export const GET = auth(async (req) => {
+
+    // Check if the user is authenticated and has the 'ADMIN' role
+    if (!req.auth || req.auth.user.role !== 'ADMIN') {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+
     const searchParams = req.nextUrl.searchParams;
     const ids = searchParams.get('ids');
     const withDetails = searchParams.get('withDetails');
@@ -21,6 +28,7 @@ export const GET = auth(async (req) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${req.auth.user.accessToken}`, // Gửi token xác thực nếu cần
             },
         });
 

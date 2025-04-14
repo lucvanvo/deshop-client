@@ -3,6 +3,10 @@ import { auth } from '@/auth';
 
 
 export const POST = auth(async (req, { params }) => {
+    // Check if the user is authenticated and has the 'ADMIN' role
+    if (!req.auth || req.auth.user.role !== 'ADMIN') {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
     const { id } = params;
 
@@ -11,6 +15,7 @@ export const POST = auth(async (req, { params }) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${req.auth.user.accessToken}`,
             },
         });
 
