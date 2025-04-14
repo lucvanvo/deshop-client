@@ -4,9 +4,7 @@ import { auth } from '@/auth';
 
 export async function getOrder(id) {
 
-    const session = await auth()
-    console.log("Session:", session); // Log the session object
-
+    const session = await auth();
     try {
         // Simulate fetching order details from an API
         const response = await fetch(`${process.env.BACKEND_ORDER_URL}?ids=${id}&withDetails=true`, {
